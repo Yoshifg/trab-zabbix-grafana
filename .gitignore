@@ -1,0 +1,18 @@
+# LATEX
+*.aux
+*.bbl
+*.blg
+*.brf
+*.dvi
+*.gz
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.pdf
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk

@@ -1,0 +1,27 @@
+\chapter{Introdução}
+A importância do gerenciamento reside na sua capacidade de fornecer visibilidade e controle sobre todos os componentes da rede, desde servidores e estações de trabalho até roteadores e switches. Um gerenciamento eficaz permite a identificação proativa de problemas, antes que eles impactem os usuários finais. Por meio do monitoramento contínuo de métricas de desempenho, como latência, utilização de banda e carga de processamento, os administradores podem prever gargalos, otimizar a alocação de recursos e planejar expansões de forma mais assertiva.
+
+Além disso, em um contexto de ameaças cibernéticas crescentes, o gerenciamento de redes desempenha um papel crucial na segurança. O monitoramento de padrões de tráfego, logs de sistema e integridade de arquivos permite a detecção de atividades suspeitas ou não autorizadas, servindo como uma camada essencial de defesa. Diante dessa complexidade, o uso de ferramentas especializadas torna-se indispensável. Soluções como o Zabbix e o Grafana capacitam as equipes de TI a automatizar a coleta de dados, analisar tendências e responder rapidamente a incidentes, transformando uma tarefa complexa em um processo sistemático e controlado. Este trabalho explora a aplicação prática dessas ferramentas para construir uma solução de monitoramento completa.
+
+\chapter{Descrição das Ferramentas}
+Para a realização deste trabalho, foram utilizadas duas das mais populares ferramentas de código aberto no ecossistema de monitoramento e observabilidade: Zabbix e Grafana. Embora ambas atuem no mesmo domínio, elas possuem funções distintas e complementares que, quando integradas, formam uma solução extremamente poderosa.
+
+\section{Zabbix}
+O Zabbix é uma solução de monitoramento de nível empresarial, robusta e escalável, projetada para monitorar a disponibilidade e o desempenho de toda a infraestrutura de TI. Ele é capaz de coletar métricas de praticamente qualquer tipo de dispositivo, incluindo servidores, máquinas virtuais, aplicações, bancos de dados e equipamentos de rede. As principais características do Zabbix incluem:
+
+\begin{itemize}
+    \item \textbf{Coleta de Dados Flexível:} O Zabbix utiliza múltiplos métodos para coletar dados, sendo os principais o Zabbix Agent (um software leve instalado nos hosts monitorados) e métodos \textit{agentless}, como SNMP, ICMP e verificações simples de serviços (HTTP, FTP, etc.).
+    \item \textbf{Detecção de Problemas (Triggers):} Sua principal força reside na capacidade de definir expressões lógicas, chamadas de \textit{triggers}, que analisam os dados coletados em tempo real. As triggers possuem níveis de severidade customizáveis e são ativadas quando uma condição anômala é detectada (ex: uso de CPU acima de 90\%).
+    \item \textbf{Sistema de Alertas e Ações:} Uma vez que uma trigger é ativada, o Zabbix pode executar ações pré-configuradas, como enviar notificações por e-mail, SMS ou outras plataformas de mensagens, além de executar scripts remotos para tentar solucionar o problema automaticamente.
+    \item \textbf{Visualização Nativa:} Possui uma interface web completa que permite a criação de dashboards, mapas de rede e gráficos para visualizar os dados coletados e o status dos problemas.
+\end{itemize}
+
+\section{Grafana}
+O Grafana é uma plataforma de código aberto especializada em visualização e análise de dados. Diferente do Zabbix, seu foco principal não é a coleta de dados, mas sim a capacidade de se conectar a diversas fontes de dados (\textit{data sources}) para criar dashboards interativos, unificados e esteticamente avançados. As principais características do Grafana incluem:
+
+\begin{itemize}
+    \item \textbf{Múltiplas Fontes de Dados:} O Grafana se destaca por sua habilidade de se conectar a dezenas de fontes de dados simultaneamente, como bancos de dados (Prometheus, InfluxDB, MySQL), serviços em nuvem e, para o propósito deste trabalho, o Zabbix.
+    \item \textbf{Dashboards Ricos e Interativos:} Permite a criação de painéis altamente customizáveis, com uma vasta gama de tipos de visualização (gráficos de linha, barras, medidores, mapas de calor, etc.). Os usuários podem explorar os dados de forma interativa, aplicando zoom, filtros e mudando o intervalo de tempo dinamicamente.
+    \item \textbf{Sistema de Plugins:} Sua arquitetura extensível, baseada em plugins, permite que a comunidade desenvolva novas integrações de fontes de dados e novos painéis de visualização, tornando a ferramenta extremamente versátil.
+    \item \textbf{Alertas Visuais:} Assim como o Zabbix, o Grafana também possui um sistema de alertas que pode ser configurado diretamente a partir dos gráficos nos dashboards, notificando os usuários quando uma métrica ultrapassa um determinado limiar.
+\end{itemize}

@@ -1,0 +1,115 @@
+\documentclass[
+	12pt,					% tamanho da fonte
+	openright,				% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,				% para impressão em recto e verso (twoside). Oposto a (oneside)
+	a4paper,				% tamanho do papel. 
+	chapter=TITLE,			% títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,			% títulos de seções convertidos em letras maiúsculas
+	sumario=abnt-6027-2012,
+	english,				% idioma adicional para hifenização
+	brazil,					% o último idioma é o principal do documento
+	fleqn,					% equações alinhadas a esquerda (UDESC/CCT)+
+	]{abntex2}
+
+\input{pacotes-basicos}
+
+% -----------------------------------------------------------------
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% -----------------------------------------------------------------
+\titulo{Trabalho Prático com as Ferramentas Zabbix e Grafana}%
+
+\autor{Gustavo Henrique {}Trassi Ganaza \and Yoshiyuki {}Fugie}
+\orientador{Sherlock Holmes {}da Silva}
+%\coorientador{Arnold Alois {}Schwarzenegger}
+
+\instituicao{Universidade Estadual de Maringá, Centro de Tecnologia, Graduação em Ciência da Computação}%
+
+\tipotrabalho{Trabalho de Disciplina}
+
+\preambulo{Monografia de trabalho de conclusão de curso apresentada apresentada ao Curso de Ciência da Computação, Centro de Tecnologia, Departamento de Informática da Universidade Estadual de Maringá, como parte dos requisitos necessários para a obtenção do grau de Bacharel em Ciência da Computação.}
+
+\local{Maringá}%
+
+\data{\the\year}%
+% ---
+
+% compila o indice
+\makeindex
+
+% -----------------------------------------------------------------
+% Início do documento
+% -----------------------------------------------------------------
+\begin{document}
+
+\selectlanguage{brazil}
+\frenchspacing  % Retira espaço extra obsoleto entre as frases.
+
+% -----------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% -----------------------------------------------------------------
+\pretextual
+
+% Você pode comentar os elementos que não deseja em seu trabalho;
+
+% A capa pode ser escolhida dentro do arquivo Capa.tex (TCC, Master, Doc, ...)
+\include{PreTextuais/Capa}					% Elemento Obrigatório
+%z\include{PreTextuais/FolhadeRosto}			% Elemento Obrigatório
+% Caso não utilize a Ficha Catalográfica entre na folha de rosto e retire o * de dentro do arquivo FolhadeRosto
+%\include{PreTextuais/FichaCatalografica}	% Elemento Obrigatório (Verso da Folha)
+%\include{PreTextuais/Errata}				% Elemento Opcional
+%\include{PreTextuais/FolhadeAprovacao}		% Elemento Obrigatório
+%\include{PreTextuais/Dedicatoria}			% Elemento Opcional
+%\include{PreTextuais/Agradecimentos}		% Elemento Opcional
+%\include{PreTextuais/Epigrafe}				% Elemento Opcional
+\include{PreTextuais/Resumo}				% Elemento Obrigatório
+%\include{PreTextuais/Abstract}				% Elemento Obrigatório
+%\include{PreTextuais/Listas}				% Elemento Opcional
+%\include{PreTextuais/Sumario}				% Elemento Obrigatório
+
+% -----------------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% -----------------------------------------------------------------
+\textual
+
+\pagestyle{PagNumReduzida}						% Comando para cabeçalho somente com numeração de página 10pt
+\aliaspagestyle{chapter}{PagNumReduzida}		% Deixar numeração da primeira página com tamanho igual ao resto da numeração
+% ref.: https://groups.google.com/g/abntex2/c/CP7g8ZMgi-c/m/KjfEnn5b9a4J
+
+
+% ---- Mantenha está estrutura, assim você deixa o trabalho mais organizado -------
+
+\include{Textuais/Introducao}			% Capítulo 1
+% -----------------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% -----------------------------------------------------------------
+\postextual
+
+% Você pode comentar os elementos que não deseja em seu trabalho;
+
+% Referências bibliográficas
+
+%Notar que os autores continuam sendo transpostos em maiúsculas, como preconiza a ABNT NBR 6023:2002. 
+%Se, no entanto, não desejar seguir esta regra,
+%crie um novo arquivo .bst (por exemplo, novoestilo.bst)a partir do estilo
+%usado (abntex2-cite-alf ou abntex2-cite-num) e retire todas as expressões
+%"u" change.case$, lembrando-se de indicar o novo arquivo como estilo, por exemplo, 
+%\bibliographystyle{novoestilo}, e colocar o arquivo criado na mesma
+%pasta em que está compilando o documento.
+
+% Arquivo alterado para citação (Autor, Ano) ao invés de (AUTOR, Ano) conforme ABNT NBR 10520:2023
+\bibliographystyle{citacao-atualizada.bst}	
+
+\bibliography{referencias}	% Elemento Obrigatório
+
+\include{PosTextuais/Glossario}				% Elemento Opcional
+\include{PosTextuais/Apendices}				% Elemento Opcional
+\include{PosTextuais/Anexos}				% Elemento Opcional
+\include{PosTextuais/IndiceRemissivo}		% Elemento Opcional
+
+
+
+\end{document}
+
+% -----------------------------------------------------------------
+% Fim do Documento
+% -----------------------------------------------------------------	
