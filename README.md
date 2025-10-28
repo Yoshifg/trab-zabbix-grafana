@@ -29,10 +29,10 @@ Primeiro, adicione o repositório do Zabbix para ter acesso aos pacotes de insta
 
 ```bash
 # Baixe o pacote de configuração do repositório
-wget https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu$(lsb_release -rs)_all.deb
+wget https://repo.zabbix.com/zabbix/7.4/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.4+ubuntu24.04_all.deb
 
 # Instale o pacote
-sudo dpkg -i zabbix-release_6.4-1+ubuntu$(lsb_release -rs)_all.deb
+sudo dpkg -i zabbix-release_latest_7.4+ubuntu24.04_all.deb
 
 # Atualize a lista de pacotes
 sudo apt update
@@ -51,18 +51,15 @@ sudo apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabb
 Acesse o MySQL para criar o banco de dados e o usuário que o Zabbix utilizará.
 
 ```bash
-# Instale o MySQL Server, caso não tenha
-sudo apt install mysql-server
-
 # Acesse o shell do MySQL
 sudo mysql -uroot -p
 
 # Execute os comandos SQL abaixo (substitua 'sua_senha_segura' por uma senha forte)
 create database zabbix character set utf8mb4 collate utf8mb4_bin;
-create user 'zabbix'@'localhost' identified by 'sua_senha_segura';
-grant all privileges on zabbix.* to 'zabbix'@'localhost';
+create user zabbix@localhost identified by 'sua_senha';
+grant all privileges on zabbix.* to zabbix@localhost;
 set global log_bin_trust_function_creators = 1;
-quit;
+quit; 
 ```
 
 #### 1.4 Importar o Schema Inicial do Zabbix
@@ -70,10 +67,19 @@ quit;
 Importe a estrutura inicial de tabelas e dados para o banco de dados recém-criado.
 
 ```bash
-sudo zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p zabbix
+sudo zcat /usr/share/zabbix/sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix
 ```
 
-*Você precisará digitar a senha criada no passo anterior.*
+*Você precisará digitar a senha criada no passo anterior e demora um tempo.*
+
+Desabilite a configuração temporária do log:
+
+```bash
+sudo mysql -uroot -p
+
+set global log_bin_trust_function_creators = 0;
+quit; 
+```
 
 #### 1.5 Configurar a Senha no Zabbix Server
 
@@ -83,7 +89,7 @@ Edite o arquivo de configuração do Zabbix (`/etc/zabbix/zabbix-server.conf`) p
 sudo nano /etc/zabbix/zabbix_server.conf
 ```
 
-Encontre a linha `DBPassword=` e adicione sua senha:
+Encontre a linha `DBPassword=`, descomente ela e adicione sua senha:
 
 ```conf
 DBPassword=sua_senha_segura
@@ -95,12 +101,12 @@ Reinicie e habilite os serviços para que iniciem com o sistema.
 
 ```bash
 sudo systemctl restart zabbix-server zabbix-agent apache2
-sudo systemctl enable zabbix-server zabbix-agent apache2
+sudo systemctl enable zabbix-server zabbix-agent apache2 
 ```
 
 #### 1.7 Configuração via Interface Web
 
-1. Acesse `http://<ip_do_seu_servidor>/zabbix` no navegador.  
+1. Acesse `http://<ip_do_seu_servidor>/zabbix` no navegador. Para encontrar seu IP use o comando `hostname -I` no terminal.
 2. Siga as instruções do instalador web. Na tela de configuração do banco de dados, utilize as credenciais que você criou.  
 3. Ao finalizar, faça login com o usuário padrão:
    * **Usuário:** `Admin`
